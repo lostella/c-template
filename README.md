@@ -2,6 +2,16 @@
 
 C project scaffolding for everyone!
 
+## Usage
+
+```
+make init     # initialize directory structure
+make build    # build project
+make test     # run tests
+```
+
+## Directory structure
+
 ```
 c-template/
 ├── Makefile
