@@ -9,14 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Initialize project structure
-        run: make init
-
-      - name: Build project
-        run: make build
-
-      - name: Run hello world
-        run: ./build/debug/bin/hello
+      - uses: actions/checkout@v5
+      - run: make init
+      - run: make format
+      - run: make format-check
+      - run: make build
+      - run: ./build/debug/bin/hello
