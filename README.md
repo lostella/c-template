@@ -4,7 +4,7 @@ C project scaffolding for everyone!
 
 ## Usage
 
-```
+```sh
 make init     # initialize directory structure
 make build    # build project
 make test     # run tests
