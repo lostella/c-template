@@ -53,7 +53,7 @@ TEST_OBJECTS := $(patsubst $(TEST_DIR)/%.c,$(OBJ_DIR)/tests/%.o,$(TEST_SOURCES))
 BINARIES := $(patsubst $(BIN_DIR)/%.c,$(BIN_OUTPUT_DIR)/%,$(BIN_SOURCES))
 TESTS := $(patsubst $(TEST_DIR)/%.c,$(TEST_OUTPUT_DIR)/%,$(TEST_SOURCES))
 
-.PHONY: all init build run test clean help
+.PHONY: all init build test clean help
 
 # Default target
 all: build
@@ -123,6 +123,7 @@ clean:
 # Help target
 help:
 	@echo "Available targets:"
+    @echo "  make init           - Initialize directory structure"
 	@echo "  make build          - Build all binaries and tests"
 	@echo "  make test           - Run all tests"
 	@echo "  make clean          - Remove build artifacts"
