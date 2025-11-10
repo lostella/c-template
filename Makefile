@@ -45,7 +45,7 @@ TEST_OBJECTS := $(patsubst $(TEST_DIR)/%.c,$(OBJ_DIR)/tests/%.o,$(TEST_SOURCES))
 BINARIES := $(patsubst $(BIN_DIR)/%.c,$(BIN_OUTPUT_DIR)/%,$(BIN_SOURCES))
 TESTS := $(patsubst $(TEST_DIR)/%.c,$(TEST_OUTPUT_DIR)/%,$(TEST_SOURCES))
 
-.PHONY: all init build test clean help
+.PHONY: all init format format-check build test clean help
 
 # Default target
 all: build
@@ -56,6 +56,18 @@ init:
 		echo "Creating example binary: $(BIN_DIR)/hello.c"; \
 		printf '#include <stdio.h>\nint main(void) {\n    printf("Hello, World!\\n");\n    return 0;\n}\n' > $(BIN_DIR)/hello.c; \
 	fi
+
+format:
+	@command -v clang-format >/dev/null 2>&1 || { echo "clang-format not found!"; exit 1; }
+	@echo "Formatting all source files..."
+	@find $(SRC_DIR) $(BIN_DIR) $(TEST_DIR) -name "*.c" -o -name "*.h" | \
+		xargs clang-format -i
+	@echo "Formatting complete."
+
+format-check:
+	@echo "Checking source formatting..."
+	@! find $(SRC_DIR) $(BIN_DIR) $(TEST_DIR) -name "*.c" -o -name "*.h" | \
+		xargs clang-format -output-replacements-xml | grep "<replacement " && echo "All files formatted." || (echo "Formatting required!"; exit 1)
 
 # Build all targets
 build: $(BINARIES) $(TESTS)
@@ -114,6 +126,8 @@ clean:
 help:
 	@echo "Available targets:"
 	@echo "  make init           - Initialize directory structure"
+	@echo "  make format         - Format code"
+	@echo "  make format-check   - Check code formatting"
 	@echo "  make build          - Build all binaries and tests"
 	@echo "  make test           - Run all tests"
 	@echo "  make clean          - Remove build artifacts"
