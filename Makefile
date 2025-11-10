@@ -1,14 +1,6 @@
 # Generic Makefile for C projects (cargo-like)
 
-ifndef RELEASE
-	RELEASE := 0
-endif
-
-ifneq ($(RELEASE),0)
-	RELEASE := 1
-else
-	RELEASE := 0
-endif
+RELEASE ?= 0
 
 # Project structure
 SRC_DIR := src
@@ -66,6 +58,16 @@ init:
 			mkdir -p "$$d"; \
 		fi; \
 	done
+	@if [ ! -f "$(BIN_DIR)/hello.c" ]; then \
+		echo "Creating example program: $(BIN_DIR)/hello.c"; \
+		cat > $(BIN_DIR)/hello.c << 'EOF' \
+#include <stdio.h> \
+int main(void) { \
+    printf("Hello, World!\\n"); \
+    return 0; \
+} \
+EOF \
+	fi
 
 # Build all targets
 build: $(BINARIES) $(TESTS)
