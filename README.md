@@ -8,6 +8,7 @@ C project scaffolding for everyone!
 make init     # initialize directory structure
 make build    # build project
 make test     # run tests
+make help     # get help
 ```
 
 ## Directory structure
