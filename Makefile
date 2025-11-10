@@ -51,22 +51,10 @@ TESTS := $(patsubst $(TEST_DIR)/%.c,$(TEST_OUTPUT_DIR)/%,$(TEST_SOURCES))
 all: build
 
 init:
-	@dirs="$SRC_DIR $BIN_DIR $INCLUDE_DIR $TEST_DIR"; \
-	for d in $$dirs; do \
-		if [ ! -d "$$d" ]; then \
-			echo "Creating directory: $$d"; \
-			mkdir -p "$$d"; \
-		fi; \
-	done
+	mkdir -p $(SRC_DIR) $(BIN_DIR) $(INCLUDE_DIR) $(TEST_DIR)
 	@if [ ! -f "$(BIN_DIR)/hello.c" ]; then \
-		echo "Creating example program: $(BIN_DIR)/hello.c"; \
-		cat > $(BIN_DIR)/hello.c << 'EOF' \
-#include <stdio.h> \
-int main(void) { \
-    printf("Hello, World!\\n"); \
-    return 0; \
-} \
-EOF \
+		echo "Creating example binary: $(BIN_DIR)/hello.c"; \
+		printf '#include <stdio.h>\nint main(void) {\n    printf("Hello, World!\\n");\n    return 0;\n}\n' > $(BIN_DIR)/hello.c; \
 	fi
 
 # Build all targets
