@@ -123,7 +123,7 @@ clean:
 # Help target
 help:
 	@echo "Available targets:"
-    @echo "  make init           - Initialize directory structure"
+	@echo "  make init           - Initialize directory structure"
 	@echo "  make build          - Build all binaries and tests"
 	@echo "  make test           - Run all tests"
 	@echo "  make clean          - Remove build artifacts"
