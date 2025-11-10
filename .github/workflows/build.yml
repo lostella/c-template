@@ -1,0 +1,19 @@
+name: Build Project
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Initialize project structure
+        run: make init
+
+      - name: Build project
+        run: make build
