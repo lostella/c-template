@@ -56,6 +56,10 @@ init:
 		echo "Creating example binary: $(BIN_DIR)/hello.c"; \
 		printf '#include <stdio.h>\nint main(void) {\n    printf("Hello, World!\\n");\n    return 0;\n}\n' > $(BIN_DIR)/hello.c; \
 	fi
+	@if [ ! -f "$(TEST_DIR)/test.c" ]; then \
+		echo "Creating example binary: $(TEST_DIR)/test.c"; \
+		printf '#include <assert.h>\nint main(void) {\n    assert(1 + 1 == 2);\n    return 0;\n}\n' > $(TEST_DIR)/test.c; \
+	fi
 
 format:
 	@command -v clang-format >/dev/null 2>&1 || { echo "clang-format not found!"; exit 1; }
