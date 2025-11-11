@@ -13,5 +13,6 @@ jobs:
       - run: make init
       - run: make format
       - run: make format-check
+      - run: make test
       - run: make build
       - run: ./build/debug/bin/hello
